@@ -1,7 +1,7 @@
 """
 LOGGING:
 A way to track events that happen when a program is run.
-logging.debug()()()() is the most basic method of doing this by adding it at key points of code and seeing what the output is
+logging.debug() is the most basic method of doing this by adding it at key points of code and seeing what the output is
 
 "logging" is a built-in module we have to import
 

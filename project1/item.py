@@ -5,6 +5,7 @@ import csv
 class Item:
     pay_rate = 0.8  # The pay rate after 20% discount
     all = []
+    result = 0
 
     def __init__(self, name: str, price: float, quantity=0):  # Default constructor
         # Run validations on received arguments
