@@ -1,5 +1,4 @@
-from class_name import ClassName
-from child import Child
+from OOP.child import Child
 from parent import Parent
 #
 # # Encapsulation test code
