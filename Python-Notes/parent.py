@@ -6,3 +6,4 @@ class Parent:
 
     def doSomething(self, input_value):
         result = self.var1 + input_value
+        print(result)
