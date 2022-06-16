@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<person>
-    <firstName>John</firstName>
-    <lastName>Doe</lastName>
-    <age>25</age>
-    <registered>Yes</registered>
-</person>
+<data>
+    <person id = "100" >
+        <firstName>John</firstName>
+        <lastName>Doe</lastName>
+        <age>25</age>
+        <registered>Yes</registered>
+    </person>
+    <person id = "101" >
+        <firstName>Anna</firstName>
+        <lastName>Smith</lastName>
+        <age>32</age>
+        <registered>No</registered>
+    </person>
+
+</data>
