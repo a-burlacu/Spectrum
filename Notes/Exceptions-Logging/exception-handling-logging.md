@@ -25,7 +25,7 @@ To create a user-defined exception:
   - Then you can create subclasses for other errors derived from your own error
 
 EX:
-```
+```python
 // exception.py //
 
 class MyError(Exception):
@@ -66,11 +66,11 @@ The `logging` module is already built-in to Python, so it is easy to implement i
 
 There are **5 Logging Levels** that correspond to functions of the same name.
 
-| **Level Name** | **Function Syntax** | **Description**                                                                                                     |
-|----------------|---------------------|---------------------------------------------------------------------------------------------------------------------|
-| DEBUG          | logging.debug()     | Detailed info, used when diagnosing issues                                                                          |
-| INFO           | logging.info()      | Confirmation that things are operating normally                                                                     |
-| WARNING        | logging.warning()   | Indicates unexpected occurence, or developing issue,<br/> program still functions normall                           |
+| **Level Name** | **Function Syntax** | **Description**                                              |
+| -------------- | ------------------- | ------------------------------------------------------------ |
+| DEBUG          | logging.debug()     | Detailed info, used when diagnosing issues                   |
+| INFO           | logging.info()      | Confirmation that things are operating normally              |
+| WARNING        | logging.warning()   | Indicates unexpected occurrence, or developing issue,<br/> program still functions normally |
 | ERROR          | logging.error()     | A more serious issue, program has not been able to <br/>perform a function, reports error without raising exception |
-| CRITICAL       | logging.critical()  | Serious error, program may be unable to continue running                                                            |
+| CRITICAL       | logging.critical()  | Serious error, program may be unable to continue running     |
 
