@@ -8,7 +8,7 @@
 
 ## Terminology:
 
-###HTTP:
+### HTTP:
 
 #### *Hyper Text Transfer Protocol*
 
@@ -25,7 +25,7 @@
 
 ### URL
 
-####*Uniform Resource Locator*
+#### *Uniform Resource Locator*
 
 > An address for a resource on the web
 >
@@ -39,7 +39,7 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 
 ### JSON
 
-####*JavaScript Object Notation*
+#### *JavaScript Object Notation*
 
 
 
@@ -64,7 +64,7 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 		- Requests from client to server **must contain all information** necessary to **understand and complete the request**
 		- A server **cannot take advantage of any previously stored** context information 
 
-###2. Client-Server
+### 2. Client-Server
 
 		- Design pattern which enforces **separation of concerns** which helps the client and server components **evolve independently** 
 		- By separating the *user interface concerns* (**client**) from the *data storage concerns*(**server**) we improve **portability across multiple platforms**
@@ -78,7 +78,7 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 		- **Self-descriptive messages:** Each resource representation should hold enough info to describe how to process message
 		- **Hypermedia as engine of application state:** Client should only have initial URI, all other resources/interactions should be dynamically driven with hyperlinks
 
-###4. Cacheable 
+### 4. Cacheable 
 
 		- Response should implicitly or explicitly label itself as cacheable or non-cacheable 
 		- If response is cacheable; client application gets right to **reuse the response data** later for **equivalent requests** and a **specified period**
