@@ -1,45 +1,112 @@
 #### Tech with Tim: Python REST API Tutorial: https://www.youtube.com/watch?v=GMppyAPbLYk
 from flask import Flask, request
-from flask_restful import Api, Resource, reqparse, abort
+from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 api = Api(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+
+class VideoModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=True)
+    views = db.Column(db.Integer, nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Video(name = {self.name}, views = {self.views}, likes = {self.likes}"
+
+db.drop_all()
+db.create_all()
 
 video_put_args = reqparse.RequestParser()
-video_put_args.add_argument("name", type=str, help="Name of the video is required", required=True)
-video_put_args.add_argument("views", type=int, help="Views of the video",required=True)
-video_put_args.add_argument("likes", type=int, help="Likes on the video",required=True)
+video_put_args.add_argument("name", type=str, help="No value given for 'name'. Enter name of video", required=True)
+video_put_args.add_argument("views", type=int, help="No value given for 'views'. Enter number of views",required=True)
+video_put_args.add_argument("likes", type=int, help="No value given for 'likes'. Enter number of likes",required=True)
 
-videos = {}
 
-def abort_if_video_id_doesnt_exist(video_id):
-    if video_id not in videos:
-        abort(404, message="Video id is not valid....")
+#
+# def abort_if_video_id_doesnt_exist(video_id):
+#     if video_id not in videos:
+#         abort(404, message="Video id is not valid....")
+#
+# def abort_if_video_exists(video_id):
+#     if video_id in videos:
+#         abort(409, message="Video already exists with that ID...")
+video_update_args = reqparse.RequestParser()
+video_update_args.add_argument("name", type=str, help="Name of the video is required",required=True)
+video_update_args.add_argument("views", type=int, help="Views of the video",required=True)
+video_update_args.add_argument("likes", type=int, help="Likes on the video",required=True)
 
-def abort_if_video_exists(video_id):
-    if video_id in videos:
-        abort(409, message="Video already exists with that ID...")
 
+resource_fields = {
+    'id': fields.Integer,
+    'name': fields.String(),
+    'views': fields.Integer,
+    'likes': fields.Integer
+}
 
 class Video(Resource):
-    def get(self,video_id):
-        abort_if_video_id_doesnt_exist(video_id)
-        return videos [video_id]
 
-    def put(self, video_id):
-        abort_if_video_exists(video_id)
+    @marshal_with(resource_fields)
+    def get(self,id):
+        # abort_if_video_id_doesnt_exist(video_id)
+
+        result = VideoModel.query.all()
+        if not result:
+            abort(404, message="Could not find video with that ID...")
+        return result
+
+    @marshal_with(resource_fields)
+    def post(self, video_id):
+        # abort_if_video_exists(video_id)
+
         args = video_put_args.parse_args()
-        videos[video_id] = args
-        return videos[video_id], 201
+        # videos[video_id] = args
 
+        result = VideoModel.query.filter_by(id=video_id).first()
+        if result:
+            abort(409, message="Video ID taken...")
+
+
+        video = VideoModel(id = video_id, name = args['name'], views = args['views'], likes = args['likes'])
+        db.session.add(video)
+        db.session.commit()
+
+        return video, 201
+
+    @marshal_with(resource_fields)
     def delete(self,video_id):
-        abort_if_video_id_doesnt_exist(video_id)
-        del videos[video_id]
-        return '', 204
+        # abort_if_video_id_doesnt_exist(video_id)
+        result = VideoModel.query.filter_by(id=video_id).first()
+
+        db.session.delete(result)
+        db.session.commit()
+
+        return print(f" Video {video_id} Deleted Successfully..."), 204
 
 
 
-# Register class as a resource that is accessible at /helloworld
+    @marshal_with(resource_fields)
+    def put(self,video_id):
+        args = video_update_args.parse_args()
+        result = VideoModel.query.filter_by(id=video_id).first()
+        if not result:
+            abort(409, message="Video doesn't exist... Cannot Update")
+
+        if args['name']:
+            result.name = args['name']
+        if args['views']:
+            result.views = args['views']
+        if args['likes']:
+            result.likes = args['likes']
+
+        db.session.commit()
+
+        return result
+
+# api.add_resource(Video, "/video/<int:video_id>")
 api.add_resource(Video, "/video/<int:video_id>")
 
 
