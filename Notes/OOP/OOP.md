@@ -3,7 +3,7 @@ ___
 >Removing unnecessary information, making process simpler, doing things "behind the scenes"
 
 EX:
-```
+```python
 // main.py //
 from class_name import ClassName
 
@@ -39,7 +39,7 @@ ___
 > bundling them together into a class or function definition which is inaccessible to the user.
 
 EX: 
-```
+```python
 // main.py //
 from class_name import ClassName
 
@@ -86,7 +86,7 @@ ___
 > This cuts down code repetition. 
 
 EX:
-```
+```python
 // main.py //
 from child import Child     # Notice we only need to import the child file
 
@@ -134,7 +134,7 @@ ___
 >When used on a string, it counts the number of characters. In lists, it counts the number of items contained. 
 
 EX:
-```
+```python
 // main.py //
 from child import Child
 from parent import Parent  # We need to include this since we are creating Parent object
@@ -177,7 +177,6 @@ They both have `var1 = 4` and `input_value = 2` however, their outputs will be d
 The `Child` class contains the same method, `doSomething()` but instead of addition, it's multiplication. 
 
 When printing the results, for the `child1` object, the output should be `8`. The output of the `parent1` object should be `6`.
-
 
 
 

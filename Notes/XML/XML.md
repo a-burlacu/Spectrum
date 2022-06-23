@@ -4,7 +4,7 @@
 
 > -software and hardware independent way of **storing, transporting, and sharing data**
 >
-> -<u>carries</u> data, does NOT <u>present</u> it ()
+> -<u>carries</u> data, does NOT <u>present</u> it 
 >
 > -works between any programs
 >
@@ -26,7 +26,7 @@
 
 #### <u>Element</u>
 
-​	An <u>element</u> is: **`<element>*something*</element>`** 
+​	An <u>element</u> is: **`<element> *something* </element>`** 
 
 ​	A **<u>root element</u>** is the <u>top-most</u> element in an XML document
 
@@ -241,7 +241,7 @@ Uses different syntax than simple type:
    			<xs:element name="to" type="xs:string"/>
 ```
 
-			##### 				<u>Indicators:</u>
+##### 		<u>Indicators:</u>
 
 ​						We can control **how** elements are to be used
 
