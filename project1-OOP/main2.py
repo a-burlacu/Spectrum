@@ -1,4 +1,4 @@
-from OOP.child import Child
+from child import Child
 from parent import Parent
 #
 # # Encapsulation test code
