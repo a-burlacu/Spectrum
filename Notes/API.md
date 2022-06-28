@@ -73,9 +73,9 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 
 > A <u>text-based data storage format</u> (similar to XML) used to return data through an API
 
----
 
----
+
+------
 
 # REST API Creation with Python
 
@@ -89,8 +89,8 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 
 ### 1. Stateless
 
-	- Requests from client to server **must contain all information** necessary to **understand and complete the request**
-	- A server **cannot take advantage of any previously stored** context information 
+- Requests from client to server **must contain all information** necessary to **understand and complete the request**
+- A server **cannot take advantage of any previously stored** context information 
 
 ### 2. Client-Server
 
@@ -101,10 +101,10 @@ So all together the URL is: [http://wikipedia.org/wiki/Polar_bear]
 
 ### 3. Uniform Interface
 
-	- **Identification of resources:** Interface must uniquely identify each resource involved in the interaction between client/server
-	- **Manipulate resources through representations:** Resources should have uniform representation in the server response
-	- **Self-descriptive messages:** Each resource representation should hold enough info to describe how to process message
-	- **Hypermedia as engine of application state:** Client should only have initial URI, all other resources/interactions should be dynamically driven with hyperlinks
+- **Identification of resources:** Interface must uniquely identify each resource involved in the interaction between client/server
+- **Manipulate resources through representations:** Resources should have uniform representation in the server response
+- **Self-descriptive messages:** Each resource representation should hold enough info to describe how to process message
+- **Hypermedia as engine of application state:** Client should only have initial URI, all other resources/interactions should be dynamically driven with hyperlinks
 
 ### 4. Cacheable 
 
