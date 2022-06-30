@@ -13,4 +13,5 @@ Notes link: [XML Notes](https://github.com/a-burlacu/Spectrum/blob/main/Notes/XM
 Notes link: [API Notes](https://github.com/a-burlacu/Spectrum/blob/main/Notes/API.md)
 
 ### Project 5 - Databases
+Notes link: [Database Notes](https://github.com/a-burlacu/Spectrum/blob/main/Notes/Database.md)
 
