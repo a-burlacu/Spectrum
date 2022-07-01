@@ -15,3 +15,8 @@ Notes link: [API Notes](https://github.com/a-burlacu/Spectrum/blob/main/Notes/AP
 ### Project 5 - Databases
 Notes link: [Database Notes](https://github.com/a-burlacu/Spectrum/blob/main/Notes/Database.md)
 
+
+
+Bookmarks:
+https://python-forum.io/thread-23283.html
+https://www.w3schools.com/tags/att_input_type.asp
