@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('feed_info.db')
+con = sqlite3.connect('feeds.sqlite')
 cur = con.cursor()
 
 cur.execute('''CREATE TABLE feed_info(

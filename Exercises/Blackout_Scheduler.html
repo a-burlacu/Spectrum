@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackout Scheduler</title>
+    <style>
+        body {
+            margin: 0px;
+            background-color: #3333;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+        .maintable {
+            margin-top:20px;
+            margin-bottom:10px;
+            table-layout:fixed;
+        }
+        tbody {
+            font-weight: bold;
+        }
+        .logo {
+            width: 100%;
+            height: 80px;
+            background-color: #000;
+            background-image: url('{{url_for('static',filename='images/Charter-logo-BlackoutScheduler.png')}}');
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: -3px;
+            padding-bottom: 6px;
+        }
+        .disneycreate {
+            padding-left: 85vw;
+            background-color: #000;
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: -3px;
+            color: white;
+        }
+        .bluestrip {
+            width: 100%;
+            height: 5px;
+            background-color: #07ABEC
+        }
+        .Btn {
+            height: 30px;
+            font-weight: bold
+        }
+        .divBtn{
+            width: 100%;
+            height: 20px;
+            margin-top: 20px;
+        }
+        .blackstrip {
+            width: 100%;
+            height: 3px;
+            background-color: #000000
+        }
+        .sidetable{
+            width: 50%;
+        }
+        a, a:visited, a:active
+        {
+            color: inherit;
+            outline: none;
+            text-decoration: none;
+        }
+        a:hover{
+            color: yellow;
+            outline: none:
+            text-decoration: none;
+
+        }
+        textarea{
+            resize: none;
+            font-size: 12px;
+        }
+        .textsize{
+            font-size: 12px;
+        }
+        .binary{
+            word-wrap: normal;
+            word-break:
+            break-all;
+            font-size: 11px;
+        }
+    </style>
+    <script language="JavaScript">
+        function get_networks()
+        {
+            var provider = document.getElementById("provider").value;
+            document.getElementById("mediaUpdateFrm").action = "/main?action=getnetworks";
+            document.getElementById("mediaUpdateFrm").submit();
+        }
+        function get_programs()
+        {
+            var network = document.getElementById("network").value;
+            document.getElementById("mediaUpdateFrm").action = "/main?action=getmedia";
+            document.getElementById("mediaUpdateFrm").submit();
+        }
+        function get_media_xml()
+        {
+            document.getElementById("mediaUpdateFrm").action = "/main?action=getmediaforprogram";
+            document.getElementById("mediaUpdateFrm").submit();
+        }
+        function apply_action_to_media()
+        {
+            program = document.getElementById("program").value
+            medaction = document.getElementById("medAction").value
+
+            if (program == '')
+            {
+                alert("Select a program for Blackout Creation");
+                return false;
+            }
+            if (medaction == '')
+            {
+                alert("Select an action to apply for Media");
+                return false;
+            }
+        }
+        function post_data()
+        {
+            media = document.getElementById("updMediaxml").value
+            if (media == '')
+            {
+                alert("Media is required to post to Cadent");
+                return false;
+            }
+        }
+
+        function gen_media_for_create()
+        {
+            network = document.getElementById("network").value
+            program = document.getElementById("program").value
+            botype = document.getElementById("medAction").value
+
+            if (network == '')
+            {
+                alert("Select a network for Blackout Creation");
+                return false;
+            }
+            else if (program == '')
+            {
+                alert("Select a program for Blackout Creation");
+                return false;
+            }
+            else if (botype == '')
+            {
+                alert("Select a Blackout type for Blackout Creation");
+                return false;
+            }
+        }
+        function gen_media_for_remove()
+        {
+            network = document.getElementById("network").value
+            program = document.getElementById("program").value
+
+            if (network == '')
+            {
+                alert("Select a network for Blackout Creation");
+                return false;
+            }
+            else if (program == '')
+            {
+                alert("Select a program for Blackout Creation");
+                return false;
+            }
+        }
+        function validate_fox_form()
+        {
+            var network = document.getElementById("network").value;
+            var program = document.getElementById("program").value;
+            var mediaxml = document.getElementById("updMediaxml").value;
+            var medAction = document.getElementById("medAction").value;
+
+            if(network == '')
+            {
+                alert("Select a network for update/delete");
+                return false;
+            }
+            else if (program == '')
+            {
+                alert("Select a program for update/delete");
+                return false;
+            }
+            else if (mediaxml == '')
+            {
+                alert("Media is required for update");
+                return false;
+            }
+            else if (medAction == '')
+            {
+                alert("blackout Action is required");
+                return false;
+            }
+        }
+        function validate_form()
+        {
+            var network = document.getElementById("network").value;
+            var program = document.getElementById("program").value;
+            var mediaxml = document.getElementById("updMediaxml").value;
+            var action = document.getElementById("action").value;
+            var provider = document.getElementById("provider").value;
+
+            if(network == '')
+            {
+                alert("Select a network for update/delete");
+                return false;
+            }
+            else if (program == '')
+            {
+                alert("Select a program for update/delete");
+                return false;
+            }
+            else if (mediaxml == '')
+            {
+                alert("Media is required for update");
+                return false;
+            }
+            if(provider == 'TURNER')
+            {
+                var medAction = document.getElementById("medAction").value;
+                if (medAction == '')
+                {
+                    alert("Blackout Action is required");
+                    return false;
+                }
+            }
+            if (action == '')
+            {
+                alert("Select an action to submit to Cadent");
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+<form id="mediaUpdateFrm" method="post">
+    <a href="/main" onclick="return reset_data()"><div class="logo"></div></a>
+    <div class="disneycreate"><a href="/DisneyCreate?action=landing">Create Disney Blackout</a></div>
+    <div class="bluestrip"></div>
+    <table border="1" width="90%" cellspacing="0" cellpadding="5" align="center" class="maintable">
+        <tr>
+        <td align="right" width="30%"><label>Provider</label></td>
+            <td>
+                <select id="provider" name="provider" onchange="get_networks()">
+                    <option value="">Select</option>
+                    <option value="DISNEY">DISNEY</option>
+                    <option value="TURNER">TURNER</option>
+                    <option value="FOX">FOX</option>
+                </select>
+                <script type="text/javascript">
+                    document.getElementById("provider").value = "{{provider}}";
+                </script>
+            </td>
+        </tr>
+        <tr>
+        <td align="right" width="30%"><label>Network</label></td>
+            <td>
+                <select id="network" name="network" onchange="get_programs()">
+                    <option value="">Select</option>
+                    {% if provider == 'DISNEY' %}
+                        <option value="ESPN">ESPN</option>
+                        <option value="ESPN2">ESPN2</option>
+                        <option value="ESPNU">ESPNU</option>
+                        <option value="DEPORTES">DEPORTES</option>
+                    {% elif provider == 'TURNER' %}
+                        <option value="TNTE">TNT East</option>
+                        <option value="TNTW">TNT West</option>
+                        <option value="TBSE">TBS East</option>
+                        <option value="TBSW">TBS West</option>
+                        <option value="CTN">Cartoon East</option>
+                        <option value="CTNW">Cartoon West</option>
+                        <option value="TRU">TRUE East</option>
+                        <option value="TRUW">TRUE West</option>
+                        <option value="TCM">TCM West</option>
+                        <option value="TCMW">TCM West</option>
+                        <option value="CNN">CNN</option>
+                        <option value="HDLN">HDLN</option>
+                    {% elif provider == 'FOX' %}
+                    <option value="KDFW">KDFW</option>
+                    <option value="KMSP">KMSP</option>
+                    <option value="KTTV">KTTV</option>
+                    <option value="WAGA">WAGA</option>
+                    <option value="WOFL">WOFL</option>
+                    <option value="WITI">WITI</option>
+                    <option value="KCPQ">KCPQ</option>
+                    <option value="WUTV">WUTV</option>
+                    <option value="WUPW">WUPW</option>
+                    {% endif %}
+                </select>
+                <script type="text/javascript">
+                    document.getElementById("network").value = "{{network}}";
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td align="right"><label>Program</label></td>
+            <td>
+                <select id="program" name="program" onchange="get_media_xml()">
+                    <option value="">Select</option>
+                    {% for program in programs %}
+                        {% if provider == 'DISNEY' %}
+                            <option value="{{program.id}}">{{program.id}}-{{program.effective}}</option>
+                        {% elif provider == 'TURNER' %}
+                            <option value="{{program.id}}">{{program.effective}}</option>
+                        {% elif provider == 'FOX' %}
+                            <option value="{{program.id}}">{{program.desc}}-{{program.effective}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <script type="text/javascript">
+                    document.getElementById("program").value = "{{progid}}";
+                </script>
+
+            </td>
+        </tr>
+        {%if provider == 'TURNER': %}
+        <tr>
+            <td align="right"><label>Media Action</label></td>
+            <td>
+                <select id="medAction" name="medAction">
+                    <option value="">Select</option>
+                    {% if show_geo_bo is true %}
+                    <option value="ApplyGeoBO">Apply Geo Blackout</option>
+                    <option value="RemoveGeoBO">Remove Geo Blackout</option>
+                    {% endif %}
+                    {% if show_web_bo is true %}
+                    <option value="ApplyWebBO">Apply Web Blackout</option>
+                    <option value="RemoveWebBO">Remove Web Blackout</option>
+                    {% endif %}
+                    {% if show_geo_bo is true %}
+                    <option value="AddGeoBOOvrdMP">Add Geo Blackout Override Media point</option>
+                    <option value="RemoveGeoBOOvrdMP">Remove Geo Blackout Override Media point</option>
+                    <option value="AddGeoBOLiftOvrdMP">Add Geo Blackout Lift Override Media point</option>
+                    <option value="RemoveGeoBOLiftOvrdMP">Remove Geo Blackout Lift Override Media point</option>
+                    {% endif %}
+                    {% if show_web_bo is true %}
+                    <option value="AddWebBOOvrdMP">Add Web Blackout Override Media point</option>
+                    <option value="RemoveWebBOOvrdMP">Remove Web Blackout Override Media point</option>
+                    <option value="AddWebBOLiftOvrdMP">Add Web Blackout Lift Override Media point</option>
+                    <option value="RemoveWebBOLiftOvrdMP">Remove Web Blackout Lift Override Media point</option>
+                    {% endif %}
+                </select>
+                <button type="submit" id="btnGenMediaforGeoBo" class ="Btn" formaction="/main?action=ApplyAction" onclick="return apply_action_to_media()">Apply Media Action</button>
+                <script type="text/javascript">
+                    document.getElementById("medAction").value = "{{medAction}}";
+                </script>
+            </td>
+        </tr>
+        {% endif %}
+        {%if provider == 'FOX' %}
+        <tr>
+            <td align="right"><label>Blackout type + Action</label></td>
+            <td>
+                <select id="medAction" name="medAction">
+                    <option value="">Select</option>
+                    <option value="encoder">Encoder Level</option>
+                    <option value="device-phone">Device Level (Phone)</option>
+                    <option value="device-tablet">Device Level (Tablet)</option>
+                    <option value="device-both">Device Level (Both)</option>
+                    <!-- <option value="geo">Geo</option> -->
+                </select>
+                <button type="submit" id="btnGenMediaforBoCreate" class ="Btn" formaction="/main?action=GenerateMediaforCreate" onclick="return gen_media_for_create()">Apply Blackout</button>
+                <button type="submit" id="btnGenMediaforBoRem" class ="Btn" formaction="/main?action=GenerateMediaforRemove" onclick="return gen_media_for_remove()">Remove Blackout</button>
+                <button type="submit" id="btnRemoveMediaPoint" class ="Btn" formaction="/main?action=RemoveMediaPoint" onclick="return gen_media_for_remove()">Remove Media Point</button>
+                <script type="text/javascript">
+                    document.getElementById("medAction").value = "{{medAction}}";
+                </script>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td align="center" colspan="2">
+                <textarea class="customtextarea" id="updMediaxml" name="updMediaxml" cols="145" rows="35">{{updatedMedia}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td align="right"><label>Action</label></td>
+            <td>
+            {%if provider != 'FOX' %}
+                <select id="action" name="action">
+                    <option value="">Select</option>
+                    <option value="update">Update</option>
+                    <option value="delete">Delete</option>
+                    {%if provider == 'TURNER': %}
+                    <option value="CopyUpdate">Copy + Update</option>
+                    {% endif %}
+                </select>
+                <script type="text/javascript">
+                    document.getElementById("action").value = "{{action}}";
+                    document.getElementById("medAction").value = "{{medAction}}";
+                    document.getElementById("program").value = "{{progid}}";
+                    document.getElementById("provider").value = "{{provider}}";
+                    document.getElementById("network").value = "{{network}}";
+                </script>
+            {% endif %}
+
+            {% if provider == 'FOX' %}
+                <button type="submit" id="btnPostCadent" class ="Btn" formaction="/main?action=posttocdadent" onclick="return validate_fox_form()">Submit to Cadent</button>
+            {% else %}
+                <button type="submit" id="btnPostCadent" class ="Btn" formaction="/main?action=posttocdadent" onclick="return validate_form()">Submit to Cadent</button>
+            {% endif %}
+            <script type="text/javascript">
+                document.getElementById("medAction").value = "{{medAction}}";
+            </script>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label>Cadent Response:</label><label id="cadentres">{{cadent_response}}</label>
+            </td>
+        </tr>
+    </table>
+</form>
