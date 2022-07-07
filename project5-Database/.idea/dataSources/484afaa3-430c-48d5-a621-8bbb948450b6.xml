@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="Feed Info Database">
+<dataSource name="employee">
   <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.40">
     <root id="1">
       <ServerVersion>3.36.0</ServerVersion>
@@ -1284,24 +1284,22 @@
     <argument id="472" parent="162">
       <Position>1</Position>
     </argument>
-    <table id="473" parent="163" name="feed_info"/>
+    <table id="473" parent="163" name="EMPLOYEES"/>
     <table id="474" parent="163" name="sqlite_master">
       <System>1</System>
     </table>
-    <column id="475" parent="473" name="Feed_ID">
-      <DataType>TEXT(20)|0s</DataType>
+    <column id="475" parent="473" name="FIRST">
+      <DataType>TEXT|0s</DataType>
       <Position>1</Position>
     </column>
-    <index id="476" parent="473" name="sqlite_autoindex_feed_info_1">
-      <ColNames>Feed_ID</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Unique>1</Unique>
-    </index>
-    <key id="477" parent="473">
-      <ColNames>Feed_ID</ColNames>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>sqlite_autoindex_feed_info_1</UnderlyingIndexName>
-    </key>
+    <column id="476" parent="473" name="LAST">
+      <DataType>TEXT|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="477" parent="473" name="PAY">
+      <DataType>INTEGER|0s</DataType>
+      <Position>3</Position>
+    </column>
     <column id="478" parent="474" name="type">
       <DataType>text|0s</DataType>
       <Position>1</Position>

@@ -91,7 +91,7 @@ print(emp)
 # # print(c.fetchone())
 #
 # # finds all instances, returns list with Employee objects
-# # qmark ? method of search
+# # qmark ? method of search  MUST PUT , AFTER so it thinks its a tuple
 # c.execute("SELECT * FROM EMPLOYEES WHERE LAST=?", ('Doe',))
 # print(c.fetchall())
 #

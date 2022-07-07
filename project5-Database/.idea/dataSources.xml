@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="feeds" uuid="ed142d89-995b-450d-8c65-03bc2f42a7c4">
+    <data-source source="LOCAL" name="employee" uuid="484afaa3-430c-48d5-a621-8bbb948450b6">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\P3123906\PycharmProjects\Spectrum\Exercises\feeds.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\P3123906\PycharmProjects\Spectrum\project5-Database\employee.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
