@@ -7,14 +7,43 @@
 
         function validate_form(){
             var feedID = document.getElementById("Feed_ID").value;
+            var feedName = document.getElementById("Feed_Name").value;
+            var providerID = document.getElementById("Provider_ID").value;
+            var DAIE = document.getElementById("DAIEnabled").value;
+            var DAID = document.getElementById("DAIDisabled").value;
+            var altconE = document.getElementById("AltConEnabled").value;
+            var altconD = document.getElementById("AltConDisabled").value;
 
-            if(feedID == ''){
+
+
+            if (feedID == '') {
                 alert("Enter a Feed ID");
                 return false;
             }
+            else if (feedName == '') {
+                alert("Enter a Feed Name");
+                return false;
+            }
+            else if (providerID == '') {
+                alert("Enter a Feed Name");
+                return false;
+            }
+            else if (DAIE == '') {
+                if (DAID == '') {
+                    alert("Select DAI condition");
+                    return false;
+                }
+            }
+            else if (altconE == '') {
+                if (altconD == '') {
+                    alert("Select Alternate Content condition");
+                    return false;
+                }
+            }
+
             else {
                 document.getElementById("feedInputForm").action = "/main?action=savefeed";
-                document.getElementById("feedInputForm").submit();
+                document.getElementById("feedInputForm").submit()
             }
         }
     </script>
@@ -24,6 +53,24 @@
 <form id ="feedInputForm" method = "POST">
     <br><label for="Feed_ID">Feed ID:</label>
     <input type="text" id="Feed_ID" name="Feed_ID" placeholder="Enter Feed ID " maxlength="20"><br>
+
+    <br><label for="Feed_Name">Feed Name:</label>
+    <input type="text" id="Feed_Name" name="Feed_Name" placeholder="Enter Feed Name " maxlength="25" ><br>
+
+    <br><label for="Provider_ID">Provider ID:</label>
+    <input type="text" id="Provider_ID" name="Provider_ID" placeholder="Enter Provider ID " maxlength="25" ><br>
+
+    <p>DAI:</p>
+    <input type="radio" name="DAI" id="DAIEnabled" value="1">
+    <label for="DAIEnabled">Enabled</label><br>
+    <input type="radio" name="DAI" id="DAIDisabled" value="0">
+    <label for="DAIDisabled">Disabled</label>
+
+    <p>Alternate Content:</p>
+    <input type="radio" name="AltCon" id="AltConEnabled" value="1">
+    <label for="AltConEnabled">Enabled</label><br>
+    <input type="radio" name="AltCon" id="AltConDisabled" value="0">
+    <label for="AltConDisabled">Disabled</label>
 
     <br><button type="submit" onclick="return validate_form()">Submit</button><br>
     <br><label>Message: </label><label id="message">{{message}}</label>
@@ -51,25 +98,15 @@
 
 
 
-<!--    <br><label for="Feed_Name">Feed Name:</label>-->
-<!--    <input type="text" id="Feed_Name" placeholder="Enter Feed Name " maxlength="25" ><br>-->
-
-<!--    <br><label for="Provider_ID">Provider ID:</label>-->
-<!--    <input type="text" id="Provider_ID" placeholder="Enter Provider ID " maxlength="25" ><br>-->
 
 
-<!--    <p>DAI:</p>-->
-<!--    <input type="radio" name="DAI" id="Enabled" value="1">-->
-<!--    <label for="Enabled">Enabled</label><br>-->
 
-<!--    <input type="radio" name="DAI" id="Disabled" value="0">-->
-<!--    <label for="Disabled">Disabled</label>-->
 
-<!--    <p>Alternate Content:</p>-->
-<!--        <input type="radio" name="AltCon" id="Enabled" value="1">-->
-<!--        <label for="Enabled">Enabled</label><br>-->
-<!--        <input type="radio" name="AltCon" id="Disabled" value="0">-->
-<!--        <label for="Disabled">Disabled</label>-->
+
+
+
+
+
 
 
 <!--    <br><label for="AltCon_Version">Alternate Content Version:</label>-->
