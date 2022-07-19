@@ -5,15 +5,36 @@
     <title>Feed Input Form</title>
     <script>
 
+        function enable_disable_ver() {
+            var AltCon =document.getElementsByName("AltCon");
+
+            if (AltCon[0].checked) {
+                document.getElementById("lblAltConVer").hidden=false;
+                document.getElementById("AltCon_Version").hidden=false;
+                document.getElementById("lbl224Feed").hidden=false;
+                document.getElementById("_224_Feed").hidden=false;
+
+                return true;
+
+            } else if (AltCon[1].checked) {
+                document.getElementById("lblAltConVer").hidden=true;
+                document.getElementById("AltCon_Version").hidden=true;
+                document.getElementById("lbl224Feed").hidden=true;
+                document.getElementById("_224_Feed").hidden=true;
+
+                return false;
+            }
+        }
+
+
         function validate_form(){
             var feedID = document.getElementById("Feed_ID").value;
             var feedName = document.getElementById("Feed_Name").value;
             var providerID = document.getElementById("Provider_ID").value;
-            var DAIE = document.getElementById("DAIEnabled").value;
-            var DAID = document.getElementById("DAIDisabled").value;
-            var altconE = document.getElementById("AltConEnabled").value;
-            var altconD = document.getElementById("AltConDisabled").value;
-
+            var DAI = document.getElementsByName("DAI");
+            var AltCon = document.getElementsByName("AltCon");
+            var AltCon_Version = document.getElementById("AltCon_Version").value;
+            var _224_Feed = document.getElementById("_224_Feed").value;
 
 
             if (feedID == '') {
@@ -25,20 +46,25 @@
                 return false;
             }
             else if (providerID == '') {
-                alert("Enter a Feed Name");
+                alert("Enter a Provider ID");
                 return false;
             }
-            else if (DAIE == '') {
-                if (DAID == '') {
-                    alert("Select DAI condition");
-                    return false;
-                }
+            else if (!DAI[0].checked && !DAI[1].checked ) {
+                alert("Select 'Enabled' or 'Disabled' for DAI");
+                return false;
             }
-            else if (altconE == '') {
-                if (altconD == '') {
-                    alert("Select Alternate Content condition");
-                    return false;
-                }
+
+            else if (!AltCon[0].checked && !AltCon[1].checked ) {
+                 alert("Select 'Enabled' or 'Disabled' for Alternate Content");
+                 return false;
+            }
+            else if (enable_disable_ver() && AltCon_Version == '') {
+                alert("Select Alternate Content Version");
+                return false;
+            }
+            else if (enable_disable_ver() &&_224_Feed == '') {
+                alert("Enter 224 Feed")
+                return false;
             }
 
             else {
@@ -61,62 +87,41 @@
     <input type="text" id="Provider_ID" name="Provider_ID" placeholder="Enter Provider ID " maxlength="25" ><br>
 
     <p>DAI:</p>
-    <input type="radio" name="DAI" id="DAIEnabled" value="1">
-    <label for="DAIEnabled">Enabled</label><br>
-    <input type="radio" name="DAI" id="DAIDisabled" value="0">
-    <label for="DAIDisabled">Disabled</label>
+    <label class="DAI">Enabled
+        <input type="radio" name="DAI" value="1">
+    </label>
+    <br>
+    <label class="DAI">Disabled
+        <input type="radio" name="DAI"  value="0">
+    </label>
 
     <p>Alternate Content:</p>
-    <input type="radio" name="AltCon" id="AltConEnabled" value="1">
-    <label for="AltConEnabled">Enabled</label><br>
-    <input type="radio" name="AltCon" id="AltConDisabled" value="0">
-    <label for="AltConDisabled">Disabled</label>
+    <label class="AltCon">Enabled
+        <input type="radio" name="AltCon" value="1" onclick="enable_disable_ver()">
+    </label>
+    <br>
+    <label class="AltCon">Disabled
+        <input type="radio" name="AltCon"  value="0" onclick="enable_disable_ver()">
+    </label>
+
+    <br><label for="AltCon_Version" id="lblAltConVer" hidden>Alternate Content Version:</label>
+    <select name="AltCon_Version" id="AltCon_Version" hidden >
+        <option value="">Select</option>
+        <option value="ESNI IO2" >ESNI IO2</option>
+        <option value="224">224</option>
+    </select><br>
+
+    <br><label for="_224_Feed" id="lbl224Feed" hidden>Feed ID:</label>
+    <input type="text" id="_224_Feed" name="_224_Feed" hidden placeholder="Enter 224 Feed" maxlength="20"><br>
+
+    Optional:
+    <br><label for="Notification_Buffer" id="lblnotifbuffer" >Notification Buffer:</label>
+    <input type="number" id="Notification_Buffer" name="Notification_Buffer" placeholder="Enter Notification Buffer"><br>
 
     <br><button type="submit" onclick="return validate_form()">Submit</button><br>
-    <br><label>Message: </label><label id="message">{{message}}</label>
+    <br><label>Status Message: </label><label id="message">{{message}}</label>
 </form>
 </body>
 </html>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--    <br><label for="AltCon_Version">Alternate Content Version:</label>-->
-<!--    <select name="AltCon_Version" id="AltCon_Version" >-->
-<!--        <option value= 1>Enabled</option>-->
-<!--        <option value= 0>Disabled</option>-->
-<!--    </select><br>-->
-
-<!--    <br><label for="_224_Feed">224 Feed:</label>-->
-<!--    <input type="text" id="_224_Feed" placeholder="Enter 224 Feed " maxlength="20" ><br>-->
-
-<!--    <br><label for="Notification_Buffer">Notification Buffer:</label>-->
-<!--    <input type="number" id="Notification_Buffer" placeholder="Enter Notification Buffer " ><br>-->
