@@ -1,10 +1,7 @@
-from flask import Flask, request, render_template, redirect, abort
+from flask import Flask, request, render_template, redirect, abort, flash, url_for
 import requests
 from database import *
-
-
 app = Flask(__name__)
-
 
 Feed_ID = ''
 Feed_Name = ''
@@ -42,11 +39,8 @@ def main():
             Notification_Buffer = 'NULL'
 
         if add_feedID(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer):
-            # if primary_key_check(Feed_ID):
-            #     print("Duplicate 'Feed ID' was entered. Try Again.")
-            #     raise Exception("Primary Key Duplicate")
             message = "Successfully Added"
-            # return redirect('main')
+            return redirect(url_for('main'))
         else:
             message = "Failed to Add"
             raise internal_error()
@@ -62,6 +56,7 @@ def main():
                        message=message)
 
 
+# override Internal Server Error message
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('Error_500.html'),500
