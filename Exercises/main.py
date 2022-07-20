@@ -46,7 +46,7 @@ def main():
             #     print("Duplicate 'Feed ID' was entered. Try Again.")
             #     raise Exception("Primary Key Duplicate")
             message = "Successfully Added"
-            return redirect('main')
+            # return redirect('main')
         else:
             message = "Failed to Add"
             raise internal_error()
