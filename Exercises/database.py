@@ -7,7 +7,7 @@ cur = con.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS feed_info(
                 Feed_ID TEXT(20) PRIMARY KEY ON CONFLICT ROLLBACK,
                 Feed_Name TEXT(25),
-                Provider_ID TEXT(25),
+                Provider_ID TEXT(25),feed_info
                 DAI INTEGER(1),
                 AltCon INTEGER (1),
                 AltCon_Version TEXT(20),

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, abort
 import requests
 from database import *
 
@@ -41,29 +41,30 @@ def main():
         if Notification_Buffer == '':
             Notification_Buffer = 'NULL'
 
-    if add_feedID(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer):
-        # if primary_key_check(Feed_ID):
-        #     print("Duplicate 'Feed ID' was entered. Try Again.")
-        #     raise Exception("Primary Key Duplicate")
-        message = "Successfully Added"
-    else:
-        message = "Failed to Add"
-        raise internal_error()
+        if add_feedID(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer):
+            # if primary_key_check(Feed_ID):
+            #     print("Duplicate 'Feed ID' was entered. Try Again.")
+            #     raise Exception("Primary Key Duplicate")
+            message = "Successfully Added"
+            return redirect('main')
+        else:
+            message = "Failed to Add"
+            raise internal_error()
 
 
     return render_template('input_form.html',
-                           Feed_ID=Feed_ID,
-                           Feed_Name=Feed_Name,
-                           DAI=DAI,
-                           AltCon=AltCon,
-                           AltCon_Version=AltCon_Version,
-                           _224_Feed=_224_Feed,
-                           message=message)
+                       Feed_ID=Feed_ID,
+                       Feed_Name=Feed_Name,
+                       DAI=DAI,
+                       AltCon=AltCon,
+                       AltCon_Version=AltCon_Version,
+                       _224_Feed=_224_Feed,
+                       message=message)
 
 
 @app.errorhandler(500)
 def internal_error(error):
-    return "Duplicate Feed ID Entered. Try Again.",500
+    return render_template('Error_500.html'),500
 
 
 
@@ -79,7 +80,7 @@ def view():
 
 if __name__ == '__main__':
         print('running app...')
-        app.run(host='127.0.0.1', port='7002')
+        app.run(host='0.0.0.0', port='7002')
         print('----app is running-----')
 
 
