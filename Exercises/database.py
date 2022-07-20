@@ -16,7 +16,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS feed_info(
 
 
 
-def add_feedID(feedid, feedname, provid, dai, altcon, altconver, _224feed, notifbuff):
+def add_feed(feedid, feedname, provid, dai, altcon, altconver, _224feed, notifbuff):
     while con:
         cur.execute("INSERT INTO feed_info VALUES(:Feed_ID, :Feed_Name, :Provider_ID, :DAI, "
                     ":AltCon, :AltCon_Version, :_224_Feed, :Notification_Buffer )",
@@ -26,7 +26,26 @@ def add_feedID(feedid, feedname, provid, dai, altcon, altconver, _224feed, notif
         con.commit()
         return True
 
-    return False
+
+
+def get_feed(feedid):
+    while con:
+        cur.execute("SELECT * FROM feed_info WHERE Feed_ID=:Feed_ID", {'Feed_ID':feedid})
+        return cur.fetchall()
+
+
+# def get_feed(feedid, feedname, provid, dai, altcon, altconver, _224feed, notifbuff):
+#     with con:
+#         cur.execute("SELECT * FROM feed_info WHERE(:Feed_ID, :Feed_Name, :Provider_ID, :DAI, "
+#                     ":AltCon, :AltCon_Version, :_224_Feed, :Notification_Buffer )",
+#                     {'Feed_ID': feedid, 'Feed_Name': feedname, 'Provider_ID': provid,
+#                      'DAI': dai, 'AltCon': altcon, 'AltCon_Version': altconver,
+#                      '_224_Feed':_224feed, 'Notification_Buffer': notifbuff})
+#         return cur.fetchall()
+
+
+
+
 
 
 # def primary_key_check(feedid):

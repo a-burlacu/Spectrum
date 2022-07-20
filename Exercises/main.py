@@ -38,9 +38,10 @@ def main():
         if Notification_Buffer == '':
             Notification_Buffer = 'NULL'
 
-        if add_feedID(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer):
+        if add_feed(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer):
             message = "Successfully Added"
-            return redirect(url_for('main'))
+            #return redirect(url_for('main'))
+            return redirect(request.referrer)
         else:
             message = "Failed to Add"
             raise internal_error()
@@ -56,22 +57,36 @@ def main():
                        message=message)
 
 
-# override Internal Server Error message
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template('Error_500.html'),500
-
-
-
 
 
 
 @app.route("/view", methods=["GET"])
 def view():
+    global Feed_ID
+    if request.args.get('action') == "viewfeed":
+        #get_feed(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer)
+        # Feed_ID = get_feed('Feed_ID')
+        Feed_ID = 'testvalue'
+
+    return render_template('display_form.html',
+                           Feed_ID=Feed_ID)
 
 
-    return Feed_ID
+# return render_template('display_form.html',
+#                        Feed_ID=Feed_ID,
+#                        Feed_Name=Feed_Name,
+#                        DAI=DAI,
+#                        AltCon=AltCon,
+#                        AltCon_Version=AltCon_Version,
+#                        _224_Feed=_224_Feed,
+#                        )
 
+
+
+# override Internal Server Error message
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('Error_500.html'),500
 
 if __name__ == '__main__':
         print('running app...')
