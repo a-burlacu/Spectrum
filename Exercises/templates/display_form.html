@@ -28,14 +28,12 @@
 <form id ="feedDisplayForm" method = "GET" class="Form">
     <table>
         <tr>
-            <td>
-                <label for="Feed_ID">Feed ID:</label>
-                    <select id="Feed_ID" name="Feed_ID">
-                        <option value="">Select</option>
-                        <option value="Feed_ID">{{Feed_ID}}</option>
-
-                    </select>
-                </td>
+            <td><label for="Feed_ID">Feed ID:</label>
+                <select id="Feed_ID" name="Feed_ID">
+                    <option value="">Select</option>
+                    <option value="{{Feed_ID}}">{{Feed_ID}}</option>
+                </select>
+            </td>
         </tr>
         <script>
             document.getElementById("feedDisplayForm").action = "/view?action=viewfeed";
@@ -43,6 +41,5 @@
         </script>
     </table>
 </form>
-
 </body>
 </html>

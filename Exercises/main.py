@@ -65,8 +65,8 @@ def view():
     global Feed_ID
     if request.args.get('action') == "viewfeed":
         #get_feed(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer)
-        # Feed_ID = get_feed('Feed_ID')
-        Feed_ID = 'testvalue'
+        Feed_ID = get_feed('Feed_ID')
+        #Feed_ID = 'testvalue'
 
     return render_template('display_form.html',
                            Feed_ID=Feed_ID)
