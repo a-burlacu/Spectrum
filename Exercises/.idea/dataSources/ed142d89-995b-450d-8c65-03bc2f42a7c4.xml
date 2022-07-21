@@ -1347,7 +1347,7 @@
       <DataType>TEXT(25)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="493" parent="488" name="feed_info">
+    <column id="493" parent="488" name="DAI">
       <DataType>DAI INTEGER(1)|0s</DataType>
       <Position>4</Position>
     </column>

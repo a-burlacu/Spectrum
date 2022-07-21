@@ -15,31 +15,62 @@
             font-weight: bold;
             margin: 15px;
         }
-        .Btn {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            height: 30px;
-        }
     </style>
 </head>
 <body>
 <h1>(TEST) Feed Display Form</h1>
-<form id ="feedDisplayForm" method = "GET" class="Form">
-    <table>
-        <tr>
-            <td><label for="Feed_ID">Feed ID:</label>
-                <select id="Feed_ID" name="Feed_ID">
-                    <option value="">Select</option>
-                    <option value="{{Feed_ID}}">{{Feed_ID}}</option>
-                </select>
-            </td>
-        </tr>
-        <script>
-            document.getElementById("feedDisplayForm").action = "/view?action=viewfeed";
-            document.getElementById("feedDisplayForm").submit()
-        </script>
-    </table>
-</form>
+<table>
+    <tr>
+        <th>
+            Feed ID:
+        </th>
+         <th>
+            Feed Name:
+        </th>
+         <th>
+            Provider ID:
+        </th>
+         <th>
+            DAI:
+        </th>
+         <th>
+             Alternate<br>Content:
+        </th>
+         <th>
+            Alternate <br>Content<br> Version:
+        </th>
+         <th>
+            224 Feed:
+        </th>
+         <th>
+            Notification<br> Buffer:
+        </th>
+    </tr>
+    {% for feed in table_data %}
+    <tr>
+        <td>
+            {{feed[0]}}
+        </td>
+        <td>
+            {{feed[1]}}
+        </td>
+         <td style="text-align:center">
+            {{feed[2]}}
+        </td>
+         <td style="text-align:center">
+            {{feed[3]}}
+        </td>
+         <td style="text-align:center">
+            {{feed[4]}}
+        </td>
+         <td style="text-align:center">
+            {{feed[5]}}
+        </td>
+         <td style="text-align:center">
+            {{feed[6]}}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>

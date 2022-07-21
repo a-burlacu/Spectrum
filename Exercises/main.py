@@ -3,20 +3,20 @@ import requests
 from database import *
 app = Flask(__name__)
 
-Feed_ID = ''
-Feed_Name = ''
-Provider_ID = ''
-DAI = ''
-AltCon = ''
-AltCon_Version = ''
-_224_Feed = ''
-Notification_Buffer = ''
 message = ''
 
 @app.route("/main", methods=["GET","POST"])
 def main():
-    global Feed_ID, Feed_Name, Provider_ID, DAI, AltCon, AltCon_Version,_224_Feed, Notification_Buffer
+    Feed_ID = ''
+    Feed_Name = ''
+    Provider_ID = ''
+    DAI = ''
+    AltCon = ''
+    AltCon_Version = ''
+    _224_Feed = ''
+    Notification_Buffer = ''
     global message
+
     error = None
 
     if request.args.get('action') == "savefeed":
@@ -26,7 +26,6 @@ def main():
         DAI = request.form["DAI"]
         AltCon = request.form["AltCon"]
         AltCon_Version = request.form.get("AltCon_Version")
-
         if AltCon_Version == '' :
             AltCon_Version = 'NULL'
 
@@ -62,14 +61,11 @@ def main():
 
 @app.route("/view", methods=["GET"])
 def view():
-    global Feed_ID
-    if request.args.get('action') == "viewfeed":
-        #get_feed(Feed_ID, Feed_Name, Provider_ID, DAI, AltCon,AltCon_Version,_224_Feed,Notification_Buffer)
-        Feed_ID = get_feed('Feed_ID')
-        #Feed_ID = 'testvalue'
+
+    Table_Data =get_feed()
 
     return render_template('display_form.html',
-                           Feed_ID=Feed_ID)
+                           table_data=Table_Data)
 
 
 # return render_template('display_form.html',
@@ -90,7 +86,7 @@ def internal_error(error):
 
 if __name__ == '__main__':
         print('running app...')
-        app.run(host='0.0.0.0', port='7002')
+        app.run(host='', port='7002')
         print('----app is running-----')
 
 
